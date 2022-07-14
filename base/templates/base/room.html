@@ -1,0 +1,11 @@
+{% extends 'base/main.html'%}
+{%block content%}
+{% if room%}
+ {%for data in detail %}
+     <span><a href="">@ {{data.host.username}}</a></span>
+     <p>{{data.description}}</p>
+
+     <p>{{data.created}}</p>
+ {%endfor%}
+{%endif%}
+{%endblock%}

@@ -1,0 +1,45 @@
+ {%extends  'base/main.html' %}
+ {%block content%}
+ <style>
+  .home-container{
+        display:grid;
+        grid-template-columns:1fr 3fr;
+        }
+ </style>
+
+
+ <h3>Welcome home</h3>
+ <div class="home container">
+    <div>
+        <h3>Browse topics</h3>
+     {%if topics%}
+         {%for topic in topics%}
+        <ul><a href="{%url 'base:home'%}?q={{topic.name}}">{{topic.name}}</a></ul>
+        <!--<ul><a href="{%url 'base:home'%}?q={{topic.name}}">{{topic.name}}</a></ul>-->
+
+         {%endfor%}
+     {%else%}
+     <p>No data found</p>
+     {%endif%}
+        <hr>
+     </div>
+
+
+   <div>
+    <a href="{%url 'base:create-room'%}">Create room</a>
+
+ {%for room in rooms%}
+     {%if request.user == room.host %}
+     <a href ="{%url 'base:update-room' room.id%}">Edit</a>
+       <span><a href ="{%url 'base:delete-room' room.id%}">Delete</a></span>
+   {%endif%}
+
+    <p>{{room.id}}  :<a href="{%url 'base:room' room.id%}">{{room.name}}</a></p>
+      <p><ul>created on {{room.created}}</ul></p>
+       <small>{{room.topic}} <span>@{{room.host}}</span></small>
+    <hr>
+
+     </div>
+  </div>
+ {%endfor%}
+ {%endblock%}
